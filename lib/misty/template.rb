@@ -9,12 +9,6 @@ module Misty
         "AWSTemplateFormatVersion" => "2010-09-09",
         "Description" => "Misty generated template for #{@project._name}",
         "Resources" => resources(@project._formations[formation_name]),
-        # "Outputs" => {
-        #   "InstanceId" => {
-        #      "Description" => "The InstanceId of the newly created EC2 instance",
-        #      "Value" => { "Ref" => "Ec2Instance" }
-        #    }
-        # }
       }
     end
     
