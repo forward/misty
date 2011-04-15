@@ -32,6 +32,7 @@ module Misty
         f.instance_eval(&block)
         @formations[name] = f
       end
+
     end
     
     class Formation
