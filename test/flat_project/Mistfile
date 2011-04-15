@@ -7,7 +7,7 @@ formation :dev do
     instances 2
     size "t1.micro"
     ami "ami-ccf405a5"
-    security_groups :default
+    security_groups :default, :web
   end
 end
 
