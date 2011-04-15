@@ -1,0 +1,27 @@
+#!/bin/bash -ex
+
+hostname <%= hostname %>
+hostname > /etc/hostname
+cat > /etc/hosts <<END_OF_FILE
+127.0.0.1 <%= hostname %> localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+END_OF_FILE
+
+wget http://ubunturepo.trafficbroker.co.uk/gpgkey.pub -O - | sudo apt-key add -
+wget -c http://ubunturepo.trafficbroker.co.uk/misc/dists/lucid/sources/misc.list -P /etc/apt/sources.list.d/
+apt-get update
+apt-get install -y ruby-enterprise=1.8.7-2011.03
+apt-get install -y rubygems1.8
+
+apt-get install -y libopenssl-ruby libssl-dev
+dpkg -D 1 --configure -a
+gem install --no-rdoc --no-ri puppet
+puppetd --server puppetmaster.trafficbroker.co.uk --verbose --no-daemonize --onetime
+/etc/init.d/puppet start
