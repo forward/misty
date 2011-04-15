@@ -24,7 +24,7 @@ module Misty
         security_groups = server_group._security_groups.is_a?(Array) ? server_group._security_groups.map{|sg| sg.to_s} : [server_group._security_groups.to_s]
         
         server_group._instances.times do |i|
-          hostname = "#{@project._name}-#{formation._name}-#{name}-#{i}"
+          hostname = "#{@project._name}-#{formation._name}-#{name}-#{i}-#{Time.now.to_i}"
           
           res["#{name}ServerGroupInstance#{i}"] = {
             "Type" => "AWS::EC2::Instance",
