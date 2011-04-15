@@ -1,12 +1,10 @@
 module Misty
   module CLI    
-    class Delete
+    class Delete < Command
       include Config
       
       def run(args)        
-        project = load_project
-
-        res = client.delete_stack(stack_name(project, args[0]))
+        res = client.delete_stack(stack_name(args[0]))
         p res
       end
     end

@@ -1,7 +1,19 @@
 module Misty
   module CLI
-    def self.command_for(comm)
-      Misty::CLI.const_get(comm.capitalize).new
+    def self.command_for(comm)  
+      Misty::CLI.const_get(comm.capitalize).new(load_project)  
+    end
+    
+    def self.load_project
+      mistfile = File.read(File.join(Dir.pwd, "Mistfile"))
+      
+      Misty::Definition.new(mistfile).evaluate
+    end
+    
+    class Command
+      def initialize(project)
+        @project = project
+      end
     end
   end
   
@@ -13,14 +25,8 @@ module Misty
       }
     end
     
-    def load_project
-      mistfile = File.read(File.join(Dir.pwd, "Mistfile"))
-      
-      Misty::Definition.new(mistfile).evaluate
-    end
-    
-    def stack_name(project, formation)
-      "#{project._name}-#{project._formations[formation.to_sym]._name}-stack"
+    def stack_name(formation)
+      "#{@project._name}-#{@project._formations[formation.to_sym]._name}-stack"
     end
     
     def client

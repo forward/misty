@@ -1,15 +1,14 @@
 module Misty
   module CLI    
-    class Create
+    class Create < Command
       include Config
       
       def run(args)
-        project = load_project
-        template = Misty::Template.new(project)
+        template = Misty::Template.new(@project)
         
         template_body = template.generate(args[0].to_sym).to_json
                 
-        res = client.create_stack(stack_name(project, args[0]), "TemplateBody" => template_body)
+        res = client.create_stack(stack_name(args[0]), "TemplateBody" => template_body)
         p res
       end
     end

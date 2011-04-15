@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     builder (3.0.0)
+    colored (1.2)
     excon (0.6.2)
     fog (0.7.2)
       builder
@@ -23,5 +24,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  colored
   fog
   json
