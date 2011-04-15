@@ -1,0 +1,22 @@
+project "test_flat_project"
+
+region "eu-west-1"
+key_pair "ec2_key"
+
+formation :dev do
+  server do
+    size "t1.micro"
+    security_groups :webserver
+    tags :roles => "web"
+  end
+end
+
+formation :prod do
+  server_group do
+    load_balance
+    autoscale :min => 1, :max => 10
+    size "m1.small"
+    security_groups :webserver
+    tags :roles => "web"
+  end
+end
