@@ -26,7 +26,14 @@ module Misty
               "KeyName" => @project._key_pair,
               "ImageId" => server_group._ami,
               "InstanceType" => server_group._size,
-              "SecurityGroups" => security_groups
+              "SecurityGroups" => security_groups,
+              "Tags" => [
+                {"Key" => "Name", "Value" => "#{@project._name}-#{formation._name}-#{name}-#{i}"},
+                {"Key" => "Project", "Value" => @project._name},
+                {"Key" => "Formation", "Value" => formation._name},
+                {"Key" => "ServerGroup", "Value" => name},
+                {"Key" => "Index", "Value" => i}
+              ]
             }
           }
         end
