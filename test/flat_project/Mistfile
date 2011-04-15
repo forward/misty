@@ -1,22 +1,22 @@
-project "test_flat_project"
-
-region "eu-west-1"
-key_pair "ec2_key"
+project "test_misty_project"
+region "us-east-1"
+key_pair "ih-key"
 
 formation :dev do
-  server do
+  server_group :web do 
+    instances 2
     size "t1.micro"
-    security_groups :webserver
-    tags :roles => "web"
+    ami "ami-ccf405a5"
+    security_groups :default
   end
 end
 
-formation :prod do
-  server_group do
-    load_balance
-    autoscale :min => 1, :max => 10
-    size "m1.small"
-    security_groups :webserver
-    tags :roles => "web"
-  end
-end
+# formation :prod do
+#   server_group do
+#     load_balance
+#     autoscale :min => 1, :max => 10
+#     size "m1.small"
+#     security_groups :webserver
+#     tags :roles => "web"
+#   end
+# end

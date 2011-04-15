@@ -1,12 +1,12 @@
 module Misty
   class Definition
-    def initialize(suefile_contents)
-      @suefile_contents = suefile_contents
+    def initialize(file_contents)
+      @file_contents = file_contents
     end
     
     def evaluate
       dsl = Misty::Dsl.new
-      dsl.evaluate @suefile_contents
+      dsl.evaluate @file_contents
     end
   end
 end

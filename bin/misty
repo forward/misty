@@ -1,9 +1,12 @@
 #!/usr/bin/env ruby
 
-# require 'rubygems'
-require File.dirname(__FILE__) + '/../misty'
+require "rubygems"
+require "bundler"
+Bundler.require
 
-command = Misty.command_for(ARGV.delete_at(0))
+require File.dirname(__FILE__) + '/../lib/misty'
+
+command = Misty::CLI.command_for(ARGV.delete_at(0))
 command.run(ARGV)
 
 
