@@ -3,6 +3,7 @@ Add capistrano integration
 Add roles
 Add hierarchical properties
 Need proper error messages
+Sort out instance config files
 
 Add monitoring
 Add load balancing
