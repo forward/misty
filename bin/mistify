@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+basefile = %q(
+project "my-project"
+region "us-east-1"
+key_pair "my-key"
+
+formation :dev do
+  server_group :web do 
+    instances 2
+    size "t1.micro"
+    ami "ami-ccf405a5"
+    security_groups :default, :web
+  end
+end
+)
+
+File.open(File.join(Dir.pwd, "Mistfile"), "w") { |f| f.write basefile  }
