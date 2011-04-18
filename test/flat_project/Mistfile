@@ -11,12 +11,17 @@ formation :dev do
   end
 end
 
-# formation :prod do
-#   server_group do
-#     load_balance
-#     autoscale :min => 1, :max => 10
-#     size "m1.small"
-#     security_groups :webserver
-#     tags :roles => "web"
-#   end
-# end
+formation :prod do
+  server_group :web do
+    instances 2
+    size "t1.micro"
+    ami "ami-ccf405a5"
+    security_groups :default, :web
+  end
+  
+  server_group :mongo do
+    size "t1.micro"
+    ami "ami-ccf405a5"
+    security_groups :default, :web
+  end
+end

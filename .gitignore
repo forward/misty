@@ -1,1 +1,4 @@
 test/unit/test_template.json
+pkg/*
+*.gem
+.bundle

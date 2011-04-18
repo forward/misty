@@ -1,3 +1,11 @@
+PATH
+  remote: .
+  specs:
+    misty (0.0.1)
+      colored (~> 1.2)
+      fog (~> 0.7.2)
+      json (~> 1.5.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -24,6 +32,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  colored
-  fog
-  json
+  colored (~> 1.2)
+  fog (~> 0.7.2)
+  json (~> 1.5.1)
+  misty!

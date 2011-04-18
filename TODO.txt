@@ -1,0 +1,18 @@
+Create gemspec
+Add capistrano integration
+Add roles
+Add hierarchical properties
+Need proper error messages
+
+Add monitoring
+Add load balancing
+Add elastic IP
+Add autoscaling
+Add DNS/route 53
+
+Add simple DB?
+Add RDS?
+Add Cloudwatch?
+Add Cloudfront?
+Add SNS?
+Add beanstalk?
