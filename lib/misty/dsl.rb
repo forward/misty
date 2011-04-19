@@ -67,6 +67,14 @@ module Misty
       def instances(num)
         @server_group.instances = num
       end
+      
+      def role(role)
+        @server_group.roles = [role]
+      end
+      
+      def roles(*roles)
+        @server_group.roles = roles
+      end
     end
   end
   

@@ -28,13 +28,19 @@ module Misty
   end
   
   class ServerGroup
-    attr_accessor :instances, :size, :ami, :security_groups
+    attr_accessor :instances, :size, :ami, :security_groups, :roles
     attr_reader :name
     
     def initialize(name, formation)
       @name, @formation = name, formation
       @instances = 1
       @size = "t1.micro"
+    end
+    
+    def roles
+      return @roles if @roles
+      
+      return [@name]
     end
   end
   

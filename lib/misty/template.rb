@@ -38,7 +38,8 @@ module Misty
                 {"Key" => "Project", "Value" => @project.name},
                 {"Key" => "Formation", "Value" => formation.name},
                 {"Key" => "ServerGroup", "Value" => name},
-                {"Key" => "Index", "Value" => i}
+                {"Key" => "Index", "Value" => i},
+                {"Key" => "Roles", "Value" => server_group.roles.join(", ")}
               ]
             }            
           }

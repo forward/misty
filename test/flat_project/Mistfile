@@ -2,12 +2,13 @@ project "test-misty-project"
 region "us-east-1"
 key_pair "ih-key"
 
-formation :dev do
+formation :test do
   server_group :web do 
     instances 2
     size "t1.micro"
     ami "ami-ccf405a5"
     security_groups :default, :web
+    roles :app, :web, :db
   end
 end
 
