@@ -1,4 +1,3 @@
-Create gemspec
 Add capistrano integration
 Add roles
 Add hierarchical properties
