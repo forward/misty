@@ -1,6 +1,6 @@
 module Misty
-  module CLI    
-    class Ssh < Command
+  module CLI::Commands    
+    class Ssh < Misty::CLI::Command
       include Config
       
       def run(args)
@@ -16,6 +16,10 @@ module Misty
         dns_name = compute.describe_instances('instance-id' => instance_id).body["reservationSet"][0]["instancesSet"][0]["dnsName"]
         
         exec "ssh ubuntu@#{dns_name}"
+      end
+      
+      def self.description
+        "Usage 'misty ssh FORMATION_NAME INSTANCE_INDEX'. N.B. The INSTANCE_INDEX is returned by the 'status' command"
       end
     end
   end

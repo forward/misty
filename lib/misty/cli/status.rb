@@ -1,6 +1,6 @@
 module Misty
-  module CLI    
-    class Status < Command
+  module CLI::Commands    
+    class Status < Misty::CLI::Command
       include Config
       
       def run(args)
@@ -30,6 +30,11 @@ module Misty
       def instance_state(instance)
         instance["instanceState"]["name"] == "running" ? instance["instanceState"]["name"].green : instance["instanceState"]["name"].red
       end
+      
+      def self.description
+        "Usage 'misty status FORMATION_NAME'"
+      end
+      
     end
   end
 end

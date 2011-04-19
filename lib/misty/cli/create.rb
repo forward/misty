@@ -1,6 +1,6 @@
 module Misty
-  module CLI    
-    class Create < Command
+  module CLI::Commands    
+    class Create < Misty::CLI::Command
       include Config
       
       def run(args)
@@ -10,6 +10,10 @@ module Misty
                 
         res = client.create_stack(stack_name(args[0]), "TemplateBody" => template_body)
         p res
+      end
+      
+      def self.description
+        "Usage 'misty create FORMATION_NAME'"
       end
     end
   end
