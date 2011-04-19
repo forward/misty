@@ -11,8 +11,8 @@ module Misty
     def generate(formation_name)
       hash = {
         "AWSTemplateFormatVersion" => "2010-09-09",
-        "Description" => "Misty generated template for #{@project._name}",
-        "Resources" => resources(@project._formations[formation_name]),
+        "Description" => "Misty generated template for #{@project.name}",
+        "Resources" => resources(@project.formations[formation_name]),
       }
     end
     
@@ -20,23 +20,23 @@ module Misty
     def resources(formation)
       res = {}
       
-      formation._server_groups.each do |name, server_group|
-        security_groups = server_group._security_groups.is_a?(Array) ? server_group._security_groups.map{|sg| sg.to_s} : [server_group._security_groups.to_s]
+      formation.server_groups.each do |name, server_group|
+        security_groups = server_group.security_groups.is_a?(Array) ? server_group.security_groups.map{|sg| sg.to_s} : [server_group.security_groups.to_s]
         
-        server_group._instances.times do |i|
-          hostname = "#{@project._name}-#{formation._name}-#{name}-#{i}-#{Time.now.to_i}"
+        server_group.instances.times do |i|
+          hostname = "#{@project.name}-#{formation.name}-#{name}-#{i}-#{Time.now.to_i}"
           
           res["#{name}ServerGroupInstance#{i}"] = {
             "Type" => "AWS::EC2::Instance",
             "Properties" => {
-              "KeyName" => @project._key_pair,
-              "ImageId" => server_group._ami,
-              "InstanceType" => server_group._size,
+              "KeyName" => @project.key_pair,
+              "ImageId" => server_group.ami,
+              "InstanceType" => server_group.size,
               "SecurityGroups" => security_groups,
               "Tags" => [
                 {"Key" => "Name", "Value" => hostname},
-                {"Key" => "Project", "Value" => @project._name},
-                {"Key" => "Formation", "Value" => formation._name},
+                {"Key" => "Project", "Value" => @project.name},
+                {"Key" => "Formation", "Value" => formation.name},
                 {"Key" => "ServerGroup", "Value" => name},
                 {"Key" => "Index", "Value" => i}
               ]
@@ -57,14 +57,4 @@ module Misty
       res
     end
   end
-  
-  module AttributeAccessor
-    def method_missing(m, *args)
-      instance_variable_get("@#{m.to_s.sub(/_/, '')}".to_sym) if (m.to_s =~ /^_/)
-    end
-  end
-  
-  class Dsl::Project; include AttributeAccessor; end
-  class Dsl::Formation; include AttributeAccessor; end
-  class Dsl::ServerGroup; include AttributeAccessor; end
 end

@@ -2,78 +2,72 @@ module Misty
   class Dsl
 
     def initialize
-      @project = Project.new
+      @dsl = ProjectDsl.new
     end
 
     def evaluate(str)
-      @project.instance_eval str
-      @project
+      @dsl.instance_eval str
+      @dsl.instance_variable_get(:@project)
     end
 
-    class Project
+    class ProjectDsl      
       def initialize
-        @formations = {}
+        @project = Project.new
       end
       
       def project(name)
-        @name = name
+        @project.name = name
       end
 
       def region(name)
-        @region = name
+        @project.region = name
       end
 
       def key_pair(name)
-        @key_pair = name
+        @project.key_pair = name
       end
       
       def formation(name, &block)
-        f = Formation.new(name)
-        f.instance_eval(&block)
-        @formations[name] = f
+        dsl = FormationDsl.new(name, @project)
+        dsl.instance_eval(&block)
+        @project.formations[name] = dsl.instance_variable_get(:@formation)
       end
 
     end
     
-    class Formation
-      def initialize(name)
-        @name = name
-        @server_groups = {}
+    class FormationDsl      
+      def initialize(name, project)
+        @formation = Formation.new(name, project)
       end
       
       def server_group(name, &block)
-        server_group = ServerGroup.new(name)
-        server_group.instance_eval(&block)
-        @server_groups[name] = server_group
+        dsl = ServerGroupDsl.new(name, @formation)
+        dsl.instance_eval(&block)
+        @formation.server_groups[name] = dsl.instance_variable_get(:@server_group)
       end
     end
     
-    class ServerGroup
-      def initialize(name)
-        @name = name
-        @instances = 1
-        @size = "t1.micro"
+    class ServerGroupDsl
+      def initialize(name, formation)
+        @server_group = ServerGroup.new(name, formation)
       end
       
       def size(size)
-        @size = size
+        @server_group.size = size
       end
       
       def ami(ami)
-        @ami = ami
+        @server_group.ami = ami
       end
       
       def security_groups(*groups)
-        @security_groups = groups
+        @server_group.security_groups = groups
       end
       
       def instances(num)
-        @instances = num
+        @server_group.instances = num
       end
     end
   end
   
-  # class DslError
-  #   
-  # end
 end

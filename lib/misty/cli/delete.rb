@@ -1,10 +1,9 @@
 module Misty
   module CLI::Commands    
     class Delete < Misty::CLI::Command
-      include Config
       
       def run(args)        
-        res = client.delete_stack(stack_name(args[0]))
+        res = cloud_formation_client.delete_stack(@project.stack_name(args[0]))
         p res
       end
       
