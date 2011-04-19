@@ -5,10 +5,10 @@ module Capistrano
     module MistyRoles
       include Misty::Config
 
-      def misty_role(role_name, tag=role_name)        
+      def misty_role(formation, role_name, tag=role_name)        
         project = Misty::Definition.load_project
         
-        res = cloud_formation_client.describe_stack_resources("StackName" => project.stack_name(args[0]))
+        res = cloud_formation_client.describe_stack_resources("StackName" => project.stack_name(formation.to_s))
         
         dns_names = []
         res.body["StackResources"].each do |instance| 

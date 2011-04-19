@@ -1,3 +1,6 @@
+require "rubygems"
+require 'json'
+require 'fog'
 
 dirname = File.dirname(__FILE__) + "/misty"
 
