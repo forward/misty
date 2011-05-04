@@ -5,8 +5,12 @@ module Misty
       def run(args)
         template = Misty::Template.new(@project)
         
-        template_body = template.generate(args[0].to_sym).to_json
+        formation = args[0].to_sym
+        
+        check_formation(formation)
                 
+        template_body = template.generate(formation).to_json            
+
         res = cloud_formation_client.create_stack(@project.stack_name(args[0]), "TemplateBody" => template_body)
         p res
       end
