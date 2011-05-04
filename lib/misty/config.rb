@@ -1,6 +1,8 @@
 module Misty
   module Config
     def credentials
+      raise "No AWS credentials found. Please define environment variables for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY." unless ENV["AWS_ACCESS_KEY_ID"] && ENV["AWS_SECRET_ACCESS_KEY"]
+      
       {
         :aws_access_key_id => ENV["AWS_ACCESS_KEY_ID"],
         :aws_secret_access_key => ENV["AWS_SECRET_ACCESS_KEY"]
