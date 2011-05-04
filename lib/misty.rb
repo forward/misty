@@ -1,6 +1,7 @@
 require "rubygems"
 require 'json'
 require 'fog'
+require 'colored'
 
 dirname = File.dirname(__FILE__) + "/misty"
 
