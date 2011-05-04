@@ -5,7 +5,7 @@ begin
   command = Misty::CLI.command_for(ARGV.delete_at(0))
   command.run(ARGV)
 rescue Misty::CLI::Error => e
-  puts e.message
+  puts "ERROR: #{e.message}"
 end
 
 
