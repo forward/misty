@@ -11,6 +11,10 @@ module Misty
       @formations[formation.to_sym].stack_name
     end
     
+    def stack_names
+      @formations.map{|k,v| v.stack_name }
+    end
+    
   end
   
   class Formation
